@@ -1,4 +1,4 @@
-# 欢迎来到 Lean 的 Openwrt 源码仓库
+# Based on Lean's Openwrt Repository
 
 如何编译自己需要的 OpenWrt 固件 [English](./README_EN.md)
 
@@ -125,15 +125,3 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 4. 存档版本仓库地址：<https://github.com/coolsnowwolf/openwrt>
 
-## 软路由介绍
-
-友情推荐不恰饭：如果你在寻找一个低功耗小体积性能不错的 x86 / x64 路由器，我个人建议可以考虑小马v1 的铝合金版本
-(N3710 4千兆)：[页面介绍](https://item.taobao.com/item.htm?spm=a230r.1.14.20.144c763fRkK0VZ&id=561126544764)
-
-![xm1](doc/xm5.jpg) ![xm2](doc/xm6.jpg)
-
-## 捐贈
-
-如果你觉得此项目对你有帮助，可以捐助我们，以鼓励项目能持续发展，更加完善
-
-支付宝 ![alipay](doc/alipay_donate.jpg) 微信 ![wechat](doc/wechat_donate.jpg)
