@@ -26,7 +26,14 @@ sed -i 's/\"services\"/\"nas\"/g' /usr/lib/lua/luci/controller/mjpg-streamer.lua
 sed -i 's/\"services\"/\"nas\"/g' /usr/lib/lua/luci/controller/p910nd.lua
 sed -i 's/\"services\"/\"nas\"/g' /usr/lib/lua/luci/controller/usb_printer.lua
 sed -i 's/\"services\"/\"nas\"/g' /usr/lib/lua/luci/controller/xunlei.lua
-sed -i 's/services/nas/g'  /usr/lib/lua/luci/view/minidlna_status.htm
+sed -i 's/services/nas/g' /usr/lib/lua/luci/view/minidlna_status.htm
+
+if [ -x "$(command -v mtkwifi)" ]; then
+    sed -i "/luci.model.network/a local wifi_infs = \"ra0 rai0\"" /usr/lib/lua/luci/view/cbi/network_ifacelist.htm
+    sed -i '/"id".*"_custom")/a ifattr(self.network == "lan", "checked", "checked") ..' /usr/lib/lua/luci/view/cbi/network_ifacelist.htm
+    sed -i 's#attr("value", " ")#ifattr(self.network == "lan", "value", wifi_infs)#' /usr/lib/lua/luci/view/cbi/network_ifacelist.htm
+    sed -i "s/_custom').checked=true\"/_custom').checked=true\" <%=ifattr(self.network == \"lan\", \"value\", wifi_infs)%>/" /usr/lib/lua/luci/view/cbi/network_ifacelist.htm
+fi
 
 ln -sf /sbin/ip /usr/bin/ip
 
@@ -53,9 +60,12 @@ echo "DISTRIB_DESCRIPTION='OpenWrt '" >> /etc/openwrt_release
 sed -i '/log-facility/d' /etc/dnsmasq.conf
 echo "log-facility=/dev/null" >> /etc/dnsmasq.conf
 
-echo 'hsts=0' > /root/.wgetrc
-
 rm -rf /tmp/luci-modulecache/
 rm -f /tmp/luci-indexcache
+
+# Enable ssh RootLogin
+sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+service sshd restart
 
 exit 0
