@@ -89,7 +89,7 @@ generate_static_network() {
 	fi
 }
 
-addr_offset=123
+addr_offset=2
 generate_network() {
 	local ports ifname macaddr protocol type ipaddr netmask vlan
 	local bridge=$2
